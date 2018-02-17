@@ -30,23 +30,23 @@ class PlayerBrewingEvent extends PlayerEvent implements Cancellable{
     
 	protected $player; 
 	protected $potion;
-    protected $inventory;
+        protected $inventory;
 	
 	public function __construct(Player $player, Item $potion, Inventory $inventory){
-		$this->player = $player;
-		$this->potion = $potion;
-        $this->inventory = $inventory;
+	    $this->player = $player;
+	    $this->potion = $potion;
+            $this->inventory = $inventory;
 	}
 	
 	public function getPlayer() : Player{
-		return $this->player;
+	    return $this->player;
 	}
     
-    public function getInventory() : Inventory{
-		return $this->inventory;
+        public function getInventory() : Inventory{
+	    return $this->inventory;
 	}
 	
-	public function getPotion() : Item{
-		return $this->potion;
+        public function getPotion() : Item{
+	    return $this->potion;
 	}
 }
