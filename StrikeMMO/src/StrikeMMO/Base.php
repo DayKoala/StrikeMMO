@@ -113,17 +113,18 @@ class Base extends PluginBase implements Listener{
     ];
         
     public function addPlayerMMOXP($player, $type, $xp){
+	$type = strtolower($type);
         if($player instanceof Player){
            $player = $player->getName();
 	}
 	$player = strtolower($player);
         $stats = $this->getPlayerMMOStats($player, $type);
-        $stats[strtolower($type)]["exp"] = ($this->getPlayerMMOXP($player, $type) + $xp);
+        $stats[$type]["exp"] = ($this->getPlayerMMOXP($player, $type) + $xp);
         if($this->getPlayerMMOXP($player, $type) >= $this->getPlayerMMONextLevelXP($player, $type)){
-           $stats[strtolower($type)]["exp"] = 0;
-           $stats[strtolower($type)]["level"] = ($this->getPlayerMMOLevel($player, $type) + 1);
-           if(isset($this->levels[$stats[strtolower($type)]["level"]])){
-              $this->getServer()->broadcastMessage("§l§6StrikeMMO §r§6The player ". strtoupper($player) ." has reached the level ". $stats["level"]);
+           $stats[$type]["exp"] = 0;
+           $stats[$type]["level"] = ($this->getPlayerMMOLevel($player, $type) + 1);
+           if(isset($this->levels[$stats[$type]["level"]])){
+              $this->getServer()->broadcastMessage("§l§6StrikeMMO §r§6The player ". strtoupper($player) ." has reached the level ". $stats[$type]["level"]);
            }
         }
         return $this->data[$player] = $stats;
