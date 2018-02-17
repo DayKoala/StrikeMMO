@@ -60,19 +60,19 @@ class Base extends PluginBase implements Listener{
     
     public function onDisable(){
         $data = (new Config($this->getDataFolder() ."Data.json", Config::JSON));
-		$data->setAll($this->data); 
-		$data->save();
+	$data->setAll($this->data); 
+	$data->save();
         
         $booster = (new Config($this->getDataFolder() ."Booster.json", Config::JSON));
-		$booster->setAll($this->booster); 
-		$booster->save();
+	$booster->setAll($this->booster); 
+	$booster->save();
     }
     
     public function getPlayerMMOStats($player){
         if($player instanceof Player){
            $player = $player->getName();
-		}
-		$player = strtolower($player);
+	}
+	$player = strtolower($player);
         if(!isset($this->data[$player])){
            $this->data[$player] = $this->base;
         }
@@ -82,8 +82,8 @@ class Base extends PluginBase implements Listener{
     public function getPlayerMMOXP($player, $type){
         if($player instanceof Player){
            $player = $player->getName();
-		}
-		$player = strtolower($player);
+	}
+	$player = strtolower($player);
         $stats = $this->getPlayerMMOStats($player);
         return $stats[strtolower($type)]["exp"];
     }
@@ -91,8 +91,8 @@ class Base extends PluginBase implements Listener{
     public function getPlayerMMOLevel($player, $type){
         if($player instanceof Player){
            $player = $player->getName();
-		}
-		$player = strtolower($player);
+	}
+	$player = strtolower($player);
         $stats = $this->getPlayerMMOStats($player);
         return $stats[strtolower($type)]["level"];
     }
@@ -100,8 +100,8 @@ class Base extends PluginBase implements Listener{
     public function getPlayerMMONextLevelXP($player, $type){
         if($player instanceof Player){
            $player = $player->getName();
-		}
-		$player = strtolower($player);
+	}
+	$player = strtolower($player);
         $next = ($this->getPlayerMMOLevel($player, $type) * 100);
         return $next;
     }
@@ -115,8 +115,8 @@ class Base extends PluginBase implements Listener{
     public function addPlayerMMOXP($player, $type, $xp){
         if($player instanceof Player){
            $player = $player->getName();
-		}
-		$player = strtolower($player);
+	}
+	$player = strtolower($player);
         $stats = $this->getPlayerMMOStats($player, $type);
         $stats[strtolower($type)]["exp"] = ($this->getPlayerMMOXP($player, $type) + $xp);
         if($this->getPlayerMMOXP($player, $type) >= $this->getPlayerMMONextLevelXP($player, $type)){
@@ -142,18 +142,18 @@ class Base extends PluginBase implements Listener{
         arsort($all);
         
         $ret = [];
-		$n = 1;
-		$max = ceil(count($all) / 5);
-		$page = min($max, max(1, $page));
-		foreach($all as $p => $l){
+	$n = 1;
+	$max = ceil(count($all) / 5);
+	$page = min($max, max(1, $page));
+	foreach($all as $p => $l){
            $p = strtolower($p);
-		   $current = ceil($n / 5);
-		   if($current == $page){
-		      $ret[$n] = $p;
-		   }elseif($current > $page){
+	   $current = ceil($n / 5);
+	   if($current == $page){
+	      $ret[$n] = $p;
+	   }elseif($current > $page){
               break;
-		   }
-		   ++$n;
+           }
+	   ++$n;
         }
 		return $ret;
     }
@@ -167,7 +167,7 @@ class Base extends PluginBase implements Listener{
         }
         $message = substr($message, 0, -1);
         return $message;
-	}
+    }
     
     public function addPlayerLevel($player, $type){
         $type = strtolower($type);
@@ -664,10 +664,10 @@ class Helper extends PluginTask{
     
     private $plugin;
     
-	public function __construct(Base $plugin){
-		$this->plugin = $plugin;
-		parent::__construct($plugin);
-	}
+    public function __construct(Base $plugin){
+	$this->plugin = $plugin;
+        parent::__construct($plugin);
+    }
     
     public function getPlugin(){
         return $this->plugin;
