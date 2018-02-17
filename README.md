@@ -1,6 +1,6 @@
 # StrikeMMO
 
-Plugin for PocketMine-MP servers that creates a true MMO experience
+Plugin for PocketMine-MP servers that creates a true MMO experience : 2.0.0!
 
 **Commands:**
 
