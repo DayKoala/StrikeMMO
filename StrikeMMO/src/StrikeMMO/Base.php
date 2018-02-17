@@ -169,22 +169,6 @@ class Base extends PluginBase implements Listener{
         return $message;
     }
     
-    public function addPlayerLevel($player, $type){
-        $type = strtolower($type);
-        if($player instanceof Player){
-           $player = $player->getName();
-        }
-        $player = strtolower($player);
-        $stats = $this->getAbillity($player, $type);
-        $stats["level"] = ($stats["level"] + 1);
-        if(isset($this->levels[$stats["level"]])){
-           $this->getServer()->broadcastMessage("§l§6StrikeMMO §r§6The player ". strtoupper($player) ." has reached the level ". $stats["level"]);
-        }
-        $stats["exp"] = 0;
-        $this->data[$player] = $stats;
-        return true;
-    }
-    
     public function getBoosterTime($player, $type){
         $type = strtolower($type);
         if($player instanceof Player){
