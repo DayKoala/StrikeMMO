@@ -8,4 +8,4 @@ Plugin for PocketMine-MP servers that creates a true MMO experience : 2.0.0!
 
 - /mctop (ability) (page) : You can see the best players of a specific ability
 
-- /booster (ability) (page) : You can buy a booster to accelerate your growth
+- /booster (ability) (amount) : You can buy a booster to accelerate your growth
