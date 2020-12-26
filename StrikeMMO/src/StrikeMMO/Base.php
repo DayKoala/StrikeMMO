@@ -43,6 +43,8 @@ use pocketmine\utils\Config;
 
 use pocketmine\scheduler\PluginTask;
 
+/* ... */
+
 class Base extends PluginBase implements Listener{
     
     public $booster, $data, $base;
