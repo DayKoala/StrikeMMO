@@ -6,6 +6,8 @@ use pocketmine\event\Event;
 
 class Skill{
 
+    use SkillTrait;
+
     public function __construct(
 
         private string $name,
