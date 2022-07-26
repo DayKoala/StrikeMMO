@@ -11,13 +11,16 @@ use DayKoala\event\EventManager;
 
 class StrikeMMO extends PluginBase{
 
-    private static $instance = null;
+    private static ?StrikeMMO $instance = null;
+    private static ?ProviderManager $manager = null;
 
-    public static function getInstance() : ?self{
+    public static function getInstance() : ?StrikeMMO{
         return self::$instance;
     }
 
-    private EventManager $manager;
+    public static function getProviderManager() : ?ProviderManager{
+        return self::$manager;
+    }
 
     private ?Provider $provider = null;
 
@@ -26,20 +29,23 @@ class StrikeMMO extends PluginBase{
     }
 
     public function onEnable() : Void{
-        $this->getServer()->getPluginManager()->registerEvents($this->manager = EventManager::getInstance(), $this);
+        if($this->provider === null){
+           $this->provider = new ArchaicYamlProvider($this->getDataFolder());
+        }
+        self::$manager = new ProviderManager($this->provider);
 
-        if($this->provider === null) $this->provider = new ArchaicYamlProvider($this->getDataFolder());
+        $this->getServer()->getPluginManager()->registerEvents(EventManager::getInstance(), $this);
     }
 
     public function onDisable() : Void{
-        if($this->provider !== null) $this->provider->save();
+        $this->provider->save();
     }
 
-    public function getEventManager() : EventManager{
-        return $this->manager;
+    public function hasProvider() : Bool{
+        return (Bool) $this->provider;
     }
 
-    public function getProvider() : Provider{
+    public function getProvider() : ?Provider{
         return $this->provider;
     }
 

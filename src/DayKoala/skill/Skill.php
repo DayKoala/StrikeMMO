@@ -4,7 +4,7 @@ namespace DayKoala\skill;
 
 use pocketmine\event\Event;
 
-class Skill{
+abstract class Skill{
 
     use SkillTrait;
 
@@ -32,10 +32,6 @@ class Skill{
 
     public function getModifiers() : Array{
         return $this->modifiers;
-    }
-
-    public function getModifierPriority(String $modifier) : Int{
-        return $this->modifiers[$modifier] ?? 0;
     }
 
 }

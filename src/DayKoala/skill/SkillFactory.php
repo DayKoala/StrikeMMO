@@ -20,14 +20,14 @@ final class SkillFactory{
         if(isset($this->skills[$skill->getName()]) and $override === false){
            return;
         }
-        $this->skill[$skill->getName()] = $skill;
+        $this->skills[$skill->getName()] = $skill;
     }
 
     public function unregister(Skill|String $skill) : Void{
         if($skill instanceof Skill){
            $skill = $skill->getName();
         }
-        if(isset($this->skills[$name])) unset($this->skills[$name]);
+        if(isset($this->skills[$skill])) unset($this->skills[$skill]);
     }
 
     public function getAll() : ?Array{

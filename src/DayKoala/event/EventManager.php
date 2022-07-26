@@ -3,14 +3,19 @@
 namespace DayKoala\event;
 
 use pocketmine\event\Listener;
-use pocketmine\event\Event;
+
+use pocketmine\event\player\PlayerEvent;
+
+use pocketmine\event\block\BlockPlaceEvent;
+use pocketmine\event\block\BlockBreakEvent;
+
+use pocketmine\event\entity\EntityDamageEvent;
+
+use DayKoala\scheduler\EventHolder;
 
 use DayKoala\skill\Skill;
 
 final class EventManager extends Listener{
-
-    public const PRIORITY_DEFAULT = 0;
-    public const PRIORITY_MAX = 1;
 
     private static $instance = null;
 
@@ -20,17 +25,11 @@ final class EventManager extends Listener{
 
     private array $handlers;
 
-    public function execute(Event $event){
+    public function execute(PlayerEvent|BlockPlaceEvent|BlockBreakEvent|EntityDamageEvent $event){
         if(isset($this->handlers[$event::class]) === false){
            return;
         }
-        foreach($this->handlers as $handler):
-            if($handler->getModifierPriority($event::class) === self::PRIORITY_MAX){
-               $handler->execute($event);
-            }else{
-               // Add request.
-            }
-        endforeach;
+        foreach($this->handlers[$event::class] as $handler) $handler->execute($event);
     }
 
     public function hasHandler(Skill $skill) : Bool{
@@ -41,14 +40,14 @@ final class EventManager extends Listener{
         if($this->hasHandler($skill)){
            return;
         }
-        foreach(array_values($skill->getModifiers()) as $modifier) $this->handlers[$modifier] = $skill;
+        foreach($skill->getModifiers() as $modifier) $this->handlers[$modifier] = $skill;
     }
 
     public function removeHandler(Skill $skill) : Void{
         if(!$this->hasHandler($skill)){
            return;
         }
-        foreach(array_values($skill->getModifiers()) as $modifier):
+        foreach($skill->getModifiers() as $modifier):
            if(isset($this->handlers[$modifier])){
               unset($this->handlers[$modifier]);
            }
